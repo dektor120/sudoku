@@ -1,19 +1,39 @@
 pipeline{
     agent any
     stages {
-        stage ('Build') {
+        stage ('Cloning Git') {
             steps {
-                echo "Build Phase"
+                checkout scm
             }
         }
-        stage ('Test') {
+        stage ('SAST') {
             steps {
-                echo "Test Phase"
+                sh 'echo SAST stage'
             }
         }
-        stage ('Deploy') {
+        stage ('Build-and-Tag') {
             steps {
-                echo "Deploy Phase"
+                sh 'echo Build-and-Tag'
+            }
+        }
+        stage ('Post-to-dockerhub') {
+            steps {
+                sh 'echo post to dockerhub repo'
+            }
+        }
+        stage ('SECUITY-IMAGE-SCANNER') {
+            steps {
+                sh 'echo scan image for security'
+            }
+        }
+        stage ('Pull-image-server') {
+            steps {
+                sh 'echo pulling image'
+            }
+        }
+        stage ('DAST') {
+            steps {
+                sh 'echo dast scan for security'
             }
         }
     }
